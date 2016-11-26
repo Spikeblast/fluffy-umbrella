@@ -1,8 +1,42 @@
 $(function () { 
     
     $('#createUserSubmit').click( sendData );
+	$('#getUsers').click( getData );
+	
+	function getData(){
+		
+        $.ajax({
+            type: 'get',
+            url: 'http://92.53.104.115:3000/api/v1/users',
+            
+            dataType: 'json', //script, html, json, jsonp
+            beforeSend: function ( jqXHR, settings ) {
+                
+                console.log('Я выполняюсь перед отправкой ajax-запроса!');
+                // return false; //если в этом методе вернуть false, то ajax-запрос не выполнится
+            },
+            error: function ( jqXHR, textStatus, errorThrown ) {
+                
+                console.log('Я выполняюсь в случае ошибки!');
+                // console.log('Время превышено');
+            },
+            success: function ( data, textStatus, errorThrown ){
+				for(var i = 0, ln = data.length; i<ln; ++i){console.log(data[i].name)};
+				console.log('Пользователь создан');
+            },
+            complete: function ( jqXHR, textStatus ) {
+                
+                console.log('Мне всё равно с каким статусом завершился ajax-запрос, я выполнюсь в любом случае!');
+            }
+        });
+
+        return false;
+    };
 
 
+
+	
+	
     function sendData () {
         var data         = {};
             data.name    = $('#inputName').val();
