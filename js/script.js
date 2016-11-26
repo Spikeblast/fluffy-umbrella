@@ -21,7 +21,7 @@ $(function () {
                 // console.log('Время превышено');
             },
             success: function ( data, textStatus, errorThrown ){
-				for(var i = 0, ln = data.length; i<ln; ++i){console.log(data[i].name)};
+				for(var i = 0, ln = data.length; i<ln; ++i){$("#ul").append('<li>'+data[i].name+'</li>')};
 				console.log('Пользователь создан');
             },
             complete: function ( jqXHR, textStatus ) {
